@@ -92,27 +92,28 @@ def searchmovie():
     cursorclass=pymysql.cursors.DictCursor)
     try:
         with conn.cursor() as cursor:
-            if stype == 'current_movie_title':
-                sql="select * from current_movie where current_movie_title like %s"
+            if stype == 'current_movie_open':
+                sql='select * from current_movie where current_movie_open like %s'
                 text='%'+text+'%'
                 cursor.execute(sql,text)
-                result=cursor.fetchall()# 다가져올떄
-                print(result)
+                movieList=cursor.fetchall()# 다가져올떄
+                print(movieList)
+                
             elif stype == 'current_movie_genre':
-                sql="select * from current_movie where current_movie_genre like %s"
+                sql='select * from current_movie where current_movie_genre like %s'
                 text='%'+text+'%'
                 cursor.execute(sql,text)
-                result=cursor.fetchall()# 다가져올떄
-                print(result)
+                movieList=cursor.fetchall()# 다가져올떄
+                print(movieList)
             else:
-                sql="select * from current_movie where current_movie_open like %s"
+                sql='select * from current_movie where current_movie_title like %s'
                 text='%'+text+'%'
                 cursor.execute(sql,text)
-                result=cursor.fetchall()# 다가져올떄
-                print(result)
+                movieList=cursor.fetchall()# 다가져올떄
+                print(movieList)
     finally:
         conn.close()
-        return jsonify(result)
+        return jsonify(movieList)
     
     
 
